@@ -527,7 +527,11 @@ void printAttrib(Print& p, char c, int8_t val, bool first=false)
         	p.print(',');
 
 	char tempString[32]; // resulting string limited to 128 chars
+#ifndef ESP8266
 	sprintf_P(tempString, PSTR("\"%c\":%d"), c, val);
+#else
+	sprintf_P(tempString, "\"%c\":%d", c, val);
+#endif
 	p.print(tempString);
 }
 
@@ -538,7 +542,11 @@ void appendAttrib(String& str, char c, int8_t val, bool first = false)
 		str += ",";
 
 	char tempString[32]; // resulting string limited to 128 chars
+#ifndef ESP8266
 	sprintf_P(tempString, PSTR("\"%c\":%d"), c, val);
+#else
+	sprintf_P(tempString, "\"%c\":%d", c, val);
+#endif
 	str += tempString;
 }
 

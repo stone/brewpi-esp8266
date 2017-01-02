@@ -110,24 +110,24 @@ void simulateLoop(void)
 
 #include "TempSensorExternal.h"
 
-const char SimulatorBeerTemp[] PROGMEM = "b";
-const char SimulatorBeerConnected[] PROGMEM = "bc";
-const char SimulatorBeerVolume[] PROGMEM = "bv";
-const char SimulatorCoolPower[] PROGMEM = "c";
-const char SimulatorDoorState[] PROGMEM = "d";
-const char SimulatorEnabled[] PROGMEM = "e";
-const char SimulatorFridgeTemp[] PROGMEM = "f";
-const char SimulatorFridgeConnected[] PROGMEM = "fc";
-const char SimulatorFridgeVolume[] PROGMEM = "fv";
-const char SimulatorHeatPower[] PROGMEM = "h";
-const char SimulatorPrintInterval[] PROGMEM = "i";
-const char SimulatorNoise[] PROGMEM = "n";
-const char SimulatorCoeffBeer[] PROGMEM = "kb";
-const char SimulatorCoeffRoom[] PROGMEM = "ke";
-const char SimulatorRoomTempMin[] PROGMEM = "rmi";
-const char SimulatorRoomTempMax[] PROGMEM = "rmx";
-const char SimulatorBeerDensity[] PROGMEM = "sg";
-const char SimulatorTime[] PROGMEM = "t";
+const char SimulatorBeerTemp[] = "b";
+const char SimulatorBeerConnected[] = "bc";
+const char SimulatorBeerVolume[] = "bv";
+const char SimulatorCoolPower[] = "c";
+const char SimulatorDoorState[] = "d";
+const char SimulatorEnabled[] = "e";
+const char SimulatorFridgeTemp[] = "f";
+const char SimulatorFridgeConnected[] = "fc";
+const char SimulatorFridgeVolume[] = "fv";
+const char SimulatorHeatPower[] = "h";
+const char SimulatorPrintInterval[] = "i";
+const char SimulatorNoise[] = "n";
+const char SimulatorCoeffBeer[] = "kb";
+const char SimulatorCoeffRoom[] = "ke";
+const char SimulatorRoomTempMin[] = "rmi";
+const char SimulatorRoomTempMax[] = "rmx";
+const char SimulatorBeerDensity[] = "sg";
+const char SimulatorTime[] = "t";
 
 
 void setTicks(ExternalTicks& externalTicks, const char* val, int multiplier=1000) {		
