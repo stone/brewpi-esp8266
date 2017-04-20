@@ -81,6 +81,11 @@ public:
 	static void savemDNSName(String mdns_id);
 #endif
 
+#ifdef ESP8266_OTA
+	static String fetchOTAUrl();
+	static void saveOTAUrl(String ota_url);
+#endif
+
 };
 
 class EepromStream 

@@ -229,6 +229,9 @@
 #define FIRMWARE_REVISION "0.8"
 #endif
 
+#if ESP8266_WiFi                // Only possible to enable OTA When ESP8266_WIFI is enabled
+#define ESP8266_OTA 1           // Enable Over the air updates of ESP8266
+#endif
 
 /*
 // Note - LCD module pins aren't used yet.

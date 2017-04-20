@@ -130,6 +130,10 @@ private:
 	static void setBeerSetting(const char* val);
 	static void setFridgeSetting(const char* val);
 	static void setTempFormat(const char* val);
+	
+	#ifdef ESP8266_OTA
+	static void setOta(const char* val);
+	#endif
 
 	typedef void (*JsonParserHandlerFn)(const char* val, void* target);	
 

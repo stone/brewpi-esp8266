@@ -283,7 +283,11 @@ void PiLink::receive(void){
 					BREWPI_LOG_MESSAGES_VERSION);
 #else
 			// Doesn't appear to be support for %S for some reason. Replacing by breaking everything out.
+#ifdef ESP8266_OTA
+			print("{\"o\":\"%s\",\"v\":\"", eepromManager.fetchOTAUrl().c_str());
+#else
 			print("N:{\"v\":\"");
+#endif
 			print(VERSION_STRING);
 			print("\",\"n\":%d,\"c\":\"", BUILD_NUMBER);
 			print(BUILD_NAME);
@@ -890,6 +894,14 @@ void PiLink::setTempFormat(const char* val) {
 	eepromManager.storeTempConstantsAndSettings();
 }
 
+#ifdef ESP8266_OTA
+// j{"setOta":"10.0.0.95/firmware/"}
+void PiLink::setOta(const char* val) {
+	String otaurl = String(val);
+	eepromManager.saveOTAUrl(otaurl);
+}
+#endif
+
 
 // todo - move these structs to PROGMEM.
 enum FilterType { FAST, SLOW, SLOPE };
@@ -962,7 +974,11 @@ const PiLink::JsonParserConvert PiLink::jsonParserConverters[] PROGMEM = {
 	
 	JSON_CONVERT(JSONKEY_heatEstimator, &tempControl.cs.heatEstimator, setStringToFixedPoint),
 	JSON_CONVERT(JSONKEY_coolEstimator, &tempControl.cs.coolEstimator, setStringToFixedPoint),
-	
+
+#ifdef ESP8266_OTA
+	JSON_CONVERT(JSONKEY_setOta, NULL, setOta),
+#endif
+
 	JSON_CONVERT(JSONKEY_tempFormat, NULL, setTempFormat),
 	
 	JSON_CONVERT(JSONKEY_tempSettingMin, &tempControl.cc.tempSettingMin, setStringToTemp),

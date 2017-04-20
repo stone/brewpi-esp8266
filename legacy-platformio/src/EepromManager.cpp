@@ -202,7 +202,49 @@ void EepromManager::savemDNSName(String mdns_id)
 	}
 	dns_name_file.close();
 }
+#endif
 
+#ifdef ESP8266_OTA
+String EepromManager::fetchOTAUrl()
+{
+	//piLink.debugMessage("EepromManager::fetchOTAUrl(): start");
+	String ota_url;
+	// The below loads the ota url from the file we saved it to (if the file exists)
+	if (SPIFFS.begin()) {
+		//piLink.debugMessage("EepromManager::fetchOTAUrl(): begi()");
+		if (SPIFFS.exists("/ota_url.txt")) {
+			//piLink.debugMessage("EepromManager::fetchOTAUrl(): file exists");
+			// The file exists - load it up
+			File ota_url_file = SPIFFS.open("/ota_url.txt", "r");
+			if (ota_url_file) {
+				//piLink.debugMessage("EepromManager::fetchOTAUrl(): file opened");
+				// Assuming everything goes well, read in the mdns name
+				ota_url = ota_url_file.readStringUntil('\n');
+				//piLink.debugMessage("EepromManager::fetchOTAUrl(): reading file");
+				//piLink.debugMessage(ota_url.c_str());
+				ota_url.trim();
+				return ota_url;
+			}
+		}
+	} else {
+//		logErrorString(ERROR_SPIFFS_FAILURE, "/ota_url.txt");
+	}
+	return "";
+}
+
+void EepromManager::saveOTAUrl(String ota_url)
+{
+	//piLink.debugMessage("EepromManager::saveOTAUrl(): start");
+	File ota_url_file = SPIFFS.open("/ota_url.txt", "w");
+	if (ota_url_file) {
+		//piLink.debugMessage("EepromManager::saveOTAUrl(): file open success");
+		// If the above fails, we weren't able to open the file for writing
+		ota_url.trim();
+		ota_url_file.println(ota_url);
+	}
+	ota_url_file.close();
+	//piLink.debugMessage("EepromManager::saveOTAUrl(): done");
+}
 #endif
 
 

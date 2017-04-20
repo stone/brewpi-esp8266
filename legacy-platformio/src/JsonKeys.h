@@ -35,6 +35,9 @@ static const char JSONKEY_beerSetting[] PROGMEM = "beerSet";
 static const char JSONKEY_fridgeSetting[] PROGMEM = "fridgeSet";
 static const char JSONKEY_heatEstimator[] PROGMEM = "heatEst";
 static const char JSONKEY_coolEstimator[] PROGMEM = "coolEst";
+#ifdef ESP8266_OTA
+static const char JSONKEY_setOta[] PROGMEM = "setOta";
+#endif
 
 // constant;
 static const char JSONKEY_tempFormat[] PROGMEM = "tempFormat";
