@@ -133,6 +133,7 @@ private:
 	
 	#ifdef ESP8266_OTA
 	static void setOta(const char* val);
+	static void getOta();
 	#endif
 
 	typedef void (*JsonParserHandlerFn)(const char* val, void* target);	

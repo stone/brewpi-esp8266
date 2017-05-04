@@ -283,11 +283,7 @@ void PiLink::receive(void){
 					BREWPI_LOG_MESSAGES_VERSION);
 #else
 			// Doesn't appear to be support for %S for some reason. Replacing by breaking everything out.
-#ifdef ESP8266_OTA
-			print("{\"o\":\"%s\",\"v\":\"", eepromManager.fetchOTAUrl().c_str());
-#else
 			print("N:{\"v\":\"");
-#endif
 			print(VERSION_STRING);
 			print("\",\"n\":%d,\"c\":\"", BUILD_NUMBER);
 			print(BUILD_NAME);
@@ -369,6 +365,13 @@ void PiLink::receive(void){
 			toggleBacklight = !toggleBacklight;
 			break;
 #endif
+
+#ifdef ESP8266_OTA
+      case 'o': // getOta
+          getOta();
+          break;
+#endif
+
 
 #if (BREWPI_DEBUG > 0)			
 		case 'Z': // zap eeprom
@@ -899,6 +902,18 @@ void PiLink::setTempFormat(const char* val) {
 void PiLink::setOta(const char* val) {
 	String otaurl = String(val);
 	eepromManager.saveOTAUrl(otaurl);
+}
+
+void PiLink::getOta() {
+	printResponse('O');
+	// This won't put "" around the value
+	// sendJsonPair(JSONKEY_setOta, eepromManager.fetchOTAUrl().c_str());
+	// So we do it like this
+	printJsonName(JSONKEY_setOta);
+	print('"');
+	print("%s", eepromManager.fetchOTAUrl().c_str());
+	print('"');
+	sendJsonClose();
 }
 #endif
 
